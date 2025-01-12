@@ -10,7 +10,6 @@ import com.example.Firebase.repository.MahasiswaRepository
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 class HomeViewModel(private val mhs: MahasiswaRepository): ViewModel(){
     var mhsUiState: HomeUiState by  mutableStateOf(HomeUiState.Loading)
