@@ -1,9 +1,30 @@
 package com.example.Firebase.ui.ViewModel
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.Firebase.model.Mahasiswa
+import com.example.Firebase.repository.MahasiswaRepository
+import kotlinx.coroutines.launch
 
+class InsertMhsViewModel(
+    private val mhs: MahasiswaRepository
+): ViewModel() {
 
+    var uiEvent: InsertMhsUiState by mutableStateOf(InsertMhsUiState())
+        private set
+    var uiState: FormState by mutableStateOf(FormState.Idle)
+        private set
+
+    fun updateState(mahasiswaEvent: MahasiswaEvent){
+        uiEvent = uiEvent.copy(
+            insertUiEvent = mahasiswaEvent,
+        )
+    }
+
+}
 
 sealed interface FormState{
     object Idle: FormState
