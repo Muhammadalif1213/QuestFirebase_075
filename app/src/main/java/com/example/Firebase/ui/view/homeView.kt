@@ -77,7 +77,7 @@ fun HomeScreen(
                 .padding(innerPadding),
             onDetailClick = onDetailClick,
             onDeleteClick = {
-                viewModel.getMhs()
+                viewModel.deleteMhs(it)
             }
         )
     }
