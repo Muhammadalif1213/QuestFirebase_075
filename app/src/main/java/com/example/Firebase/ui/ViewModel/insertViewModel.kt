@@ -2,6 +2,18 @@ package com.example.Firebase.ui.ViewModel
 
 import com.example.Firebase.model.Mahasiswa
 
+data class FormErrorState(
+    val nim: String? = null,
+    val nama: String? = null,
+    val jenisKelamin: String? = null,
+    val alamat: String? = null,
+    val kelas: String? = null,
+){
+    fun isValid(): Boolean{
+        return nim != null && nama != null && jenisKelamin != null && alamat != null && kelas != null
+    }
+}
+
 fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
     nim = nim,
     nama = nama,
