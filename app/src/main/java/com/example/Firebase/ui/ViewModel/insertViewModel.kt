@@ -1,6 +1,14 @@
 package com.example.Firebase.ui.ViewModel
 
+
 import com.example.Firebase.model.Mahasiswa
+
+
+
+data class InsertMhsUiState(
+    val insertUiEvent: MahasiswaEvent = MahasiswaEvent(),
+    val isEntryValid: FormErrorState = FormErrorState()
+)
 
 data class FormErrorState(
     val nim: String? = null,
