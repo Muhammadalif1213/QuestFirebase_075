@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun CustomTopAppBar(
     title: String,
-    canNavigateBack: Boolean,
+    navigationIcon: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {},
@@ -32,7 +32,7 @@ fun CustomTopAppBar(
         },
         modifier = modifier,
         scrollBehavior = scrollBehavior, navigationIcon = {
-            if (canNavigateBack){
+            if (navigationIcon){
                 IconButton(
                     onClick = navigateUp
                 ) {

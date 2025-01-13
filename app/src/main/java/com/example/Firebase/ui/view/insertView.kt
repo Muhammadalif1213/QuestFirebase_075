@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.Firebase.ui.ViewModel.FormErrorState
@@ -64,7 +66,6 @@ fun InsertMhsView(
                 }
                 delay(700)
                 onNavigate()
-
                 viewModel.resetSnackBarMessage()
             }
             is FormState.Error -> {
@@ -104,7 +105,7 @@ fun InsertMhsView(
                     updateEvent ->
                     viewModel.updateState(updateEvent)
                 },
-                onSaveClick = {
+                onClick = {
                     if (
                         viewModel.validateFields()
                     ){
@@ -122,7 +123,7 @@ fun InsertBodyMhs(
     modifier: Modifier = Modifier,
     onValueChange: (MahasiswaEvent) -> Unit,
     uiState: InsertMhsUiState,
-    onSaveClick: () -> Unit,
+    onClick: () -> Unit,
     homeUiState: FormState
 ){
     Column (
@@ -136,7 +137,7 @@ fun InsertBodyMhs(
             errorState = uiState.isEntryValid,
             modifier = Modifier.fillMaxWidth()
         )
-        Button(onClick = onSaveClick,
+        Button(onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
             enabled = homeUiState !is FormState.Loading
         ){
@@ -159,7 +160,7 @@ fun InsertBodyMhs(
 @Composable
 fun  FormMahasiswa(
     mahasiswaEvent: MahasiswaEvent = MahasiswaEvent(),
-    onValueChange : (MahasiswaEvent) -> Unit = {},
+    onValueChange : (MahasiswaEvent) -> Unit,
     errorState: FormErrorState =FormErrorState(),
     modifier: Modifier = Modifier
 ){
@@ -167,7 +168,7 @@ fun  FormMahasiswa(
     val kelas = listOf("A","B","C","D","E")
 
     Column(
-
+        modifier = Modifier.fillMaxWidth()
     ) {
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
@@ -210,9 +211,9 @@ fun  FormMahasiswa(
 
                 ) {
                     RadioButton(
-                        selected = mahasiswaEvent.jenisKelamin == jk,
+                        selected = mahasiswaEvent.jenis_kelamin == jk,
                         onClick = {
-                            onValueChange(mahasiswaEvent.copy(jenisKelamin = jk))
+                            onValueChange(mahasiswaEvent.copy(jenis_kelamin = jk))
                         },
                     )
                     Text(
@@ -234,7 +235,8 @@ fun  FormMahasiswa(
             },
             label = { Text("Alamat") },
             isError = errorState.nama != null,
-            placeholder = { Text("Masukan Alamat") }
+            placeholder = { Text("Masukan Alamat") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
         Text(
             text = errorState.alamat ?: "",
@@ -276,7 +278,8 @@ fun  FormMahasiswa(
             },
             label = { Text("Angkatan") },
             isError = errorState.nama != null,
-            placeholder = { Text("Masukan Angkatan") }
+            placeholder = { Text("Masukan Angkatan") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(
             text = errorState.angkatan ?: "",
