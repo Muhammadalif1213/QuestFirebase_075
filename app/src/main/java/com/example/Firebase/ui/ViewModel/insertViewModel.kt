@@ -24,6 +24,47 @@ class InsertMhsViewModel(
         )
     }
 
+    fun validateFields(): Boolean {
+        val event = uiEvent.insertUiEvent
+        val errorState = FormErrorState(
+            nim = if (event.nim.isNotEmpty()) null else "NIM tidak boleh kosong",
+            nama = if (event.nama.isNotEmpty()) null else "Nama tidak boleh kosong",
+
+            jenisKelamin = if (event.jenisKelamin.isNotEmpty()) null else "Jenis Kelamin tidak boleh kosong",
+
+            alamat = if (event.alamat.isNotEmpty()) null else "Alamat tidak boleh kosong",
+            kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
+        )
+        uiEvent = uiEvent.copy(isEntryValid = errorState)
+         return errorState.isValid()
+
+    }
+
+    fun insertMhs() {
+
+        if (validateFields()) {
+            viewModelScope.launch {
+                uiState = FormState.Loading
+                try {
+                    mhs.insertMahasiswa(uiEvent.insertUiEvent.toMhsModel())
+                    uiState = FormState.Success("Data berhasil disimpan")
+                } catch (e: Exception) {
+                    uiState = FormState.Error("Data gagal disimpan")
+                }
+            }
+        } else {
+            uiState = FormState.Error("Data tidak valid")
+        }
+    }
+
+    fun resetForm(){
+        uiEvent = InsertMhsUiState()
+        uiState = FormState.Idle
+    }
+
+    fun resetSnackBarMessage(){
+        uiState = FormState.Idle
+    }
 }
 
 sealed interface FormState{
