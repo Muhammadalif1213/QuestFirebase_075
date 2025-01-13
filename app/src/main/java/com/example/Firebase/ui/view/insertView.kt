@@ -223,7 +223,7 @@ fun  FormMahasiswa(
             }
         }
         Text(
-            text = errorState.jenisKelamin ?: "",
+            text = errorState.jenis_kelamin ?: "",
             color = Color.Red
         )
 
@@ -234,7 +234,7 @@ fun  FormMahasiswa(
                 onValueChange(mahasiswaEvent.copy(alamat = it))
             },
             label = { Text("Alamat") },
-            isError = errorState.nama != null,
+            isError = errorState.alamat != null,
             placeholder = { Text("Masukan Alamat") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
@@ -277,7 +277,7 @@ fun  FormMahasiswa(
                 onValueChange(mahasiswaEvent.copy(angkatan = it))
             },
             label = { Text("Angkatan") },
-            isError = errorState.nama != null,
+            isError = errorState.angkatan != null,
             placeholder = { Text("Masukan Angkatan") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
