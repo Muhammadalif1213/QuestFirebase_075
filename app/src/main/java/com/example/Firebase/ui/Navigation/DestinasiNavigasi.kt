@@ -10,4 +10,8 @@ object DestinasiHome: DestinasiNavigasi{
     override val titleRes = "Home"
 }
 
+object DestinasiInsert: DestinasiNavigasi{
+    override val route = "item_entry"
+    override val titleRes = "Entry Mahasiswa"
+}
 
