@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.Firebase.ui.view.DetailView
 import com.example.Firebase.ui.view.HomeScreen
 import com.example.Firebase.ui.view.InsertMhsView
 
@@ -30,6 +31,12 @@ fun PengelolaHalaman(
                 onBack = { navController.popBackStack() },
                 onNavigate = { navController.navigate(DestinasiHome.route)})
 
+        }
+        composable(DestinasiDetail.route) {
+            DetailView(
+                onEditClick = { },
+                navigateBack = { navController.popBackStack() }
+            )
         }
     }
 }

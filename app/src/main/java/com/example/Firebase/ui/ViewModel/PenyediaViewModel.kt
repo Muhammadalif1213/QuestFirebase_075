@@ -15,6 +15,12 @@ object PenyediaViewModel {
         initializer {
             InsertMhsViewModel(mhsApp().container.mahasiswaRepository)
         }
+        initializer {
+            DetailViewModel(
+                this.createSavedStateHandle(),
+                mhsApp().container.mahasiswaRepository
+            )
+        }
     }
 }
 

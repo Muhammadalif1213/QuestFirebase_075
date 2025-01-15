@@ -2,6 +2,7 @@ package com.example.Firebase.ui.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -35,6 +38,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.Firebase.model.Mahasiswa
 import com.example.Firebase.ui.ViewModel.FormErrorState
 import com.example.Firebase.ui.ViewModel.FormState
 import com.example.Firebase.ui.ViewModel.InsertMhsUiState
@@ -200,7 +204,6 @@ fun  FormMahasiswa(
             color = Color.Red
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Jenis Kelamin")
         Row (modifier = Modifier.fillMaxWidth()
         ) {
@@ -243,7 +246,6 @@ fun  FormMahasiswa(
             color = Color.Red
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
         Text(text = "Kelas")
         Row (modifier = Modifier.fillMaxWidth()
         ) {
@@ -283,6 +285,54 @@ fun  FormMahasiswa(
         )
         Text(
             text = errorState.angkatan ?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.judul_skripsi,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(judul_skripsi = it))
+            },
+            label = { Text("Judul Skripsi") },
+            isError = errorState.judul_skripsi != null,
+            placeholder = { Text("Masukan Judul Skripsi") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
+        Text(
+            text = errorState.judul_skripsi ?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dosen_pembimbing,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(dosen_pembimbing = it))
+            },
+            label = { Text("Dosen Pembimbing 1") },
+            isError = errorState.dosen_pembimbing != null,
+            placeholder = { Text("Masukan Dosen Pembimbing 1") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
+        Text(
+            text = errorState.dosen_pembimbing ?: "",
+            color = Color.Red
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.dosen_pembimbing_2,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(dosen_pembimbing_2 = it))
+            },
+            label = { Text("Dosen Pembimbing 2") },
+            isError = errorState.dosen_pembimbing_2 != null,
+            placeholder = { Text("Masukan Dosen Pembimbing 2") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
+        Text(
+            text = errorState.dosen_pembimbing_2 ?: "",
             color = Color.Red
         )
     }

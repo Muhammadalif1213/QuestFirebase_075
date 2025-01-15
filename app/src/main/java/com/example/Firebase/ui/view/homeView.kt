@@ -102,16 +102,25 @@ fun HomeStatus(
         is HomeUiState.Loading -> OnLoading(modifier = Modifier.fillMaxSize())
 
         is HomeUiState.Success ->
-            MhsLayout(
-                mahasiswa = homeUiState.mahasiswa,
-                modifier = modifier.fillMaxWidth(),
-                onDeleteClick = {
-                    onDeleteClick(it)
-                },
-                onDetailClick = {
-                    onDetailClick(it.nim)
+            if (homeUiState.mahasiswa.isEmpty()){
+                return Box(
+                    modifier = modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ){
+                    Text(text = "Tidak Ada Data Mahasiswa")
                 }
-            )
+            }else{
+                MhsLayout(
+                    mahasiswa = homeUiState.mahasiswa,
+                    modifier = modifier.fillMaxWidth(),
+                    onDeleteClick = {
+                        onDeleteClick(it)
+                    },
+                    onDetailClick = {
+                        onDetailClick(it.nim)
+                    }
+                )
+            }
 
         is HomeUiState.Error -> onErr(
             message = homeUiState.message.message?:"Error",
@@ -134,7 +143,8 @@ fun OnLoading(modifier: Modifier = Modifier){
 @Composable
 fun onErr(
     message: String,
-    retryAction: () -> Unit,modifier: Modifier = Modifier
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier
 ){
     Column(
         modifier = modifier,
@@ -211,11 +221,11 @@ fun MhsCard(
                 )
             }
             Text(
-                text = mahasiswa.kelas,
+                text = mahasiswa.alamat,
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = mahasiswa.alamat,
+                text = mahasiswa.judul_skripsi,
                 style = MaterialTheme.typography.titleMedium
             )
         }
